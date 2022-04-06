@@ -36,11 +36,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install dbt-bigquery
-          dbt deps --target prod
+          dbt deps --project-dir dbt_proj --target prod
       
       # Add dbt seed or other commands here if needed
       - name: Run dbt models
-        run: dbt run --target prod
+        run: dbt run --project-dir dbt_proj --target prod
 
       - name: Test dbt models
-        run: dbt test --target prod
+        run: dbt test --project-dir dbt_proj --target prod
