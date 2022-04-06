@@ -4,7 +4,7 @@ dbt_proj:
     dev:
       type: bigquery
       method: service-account
-      keyfile: "{{ secrets('DBT_GOOGLE_BIGQUERY_KEYFILE') }}"
+      keyfile: "{{ env_var('DBT_GOOGLE_BIGQUERY_KEYFILE') }}"
       project: "{{ env_var('DBT_GOOGLE_PROJECT') }}"
       dataset: "{{ env_var('DBT_GOOGLE_BIGQUERY_DATASET_DEV') }}"
       threads: 32
@@ -14,7 +14,7 @@ dbt_proj:
     prod:
       type: bigquery
       method: service-account
-      keyfile: "{{ secrets('DBT_GOOGLE_BIGQUERY_KEYFILE') }}"
+      keyfile: "{{ env_var('DBT_GOOGLE_BIGQUERY_KEYFILE') }}"
       project: "{{ env_var('DBT_GOOGLE_PROJECT') }}"
       dataset: "{{ env_var('DBT_GOOGLE_BIGQUERY_DATASET_PROD') }}"
       threads: 32
