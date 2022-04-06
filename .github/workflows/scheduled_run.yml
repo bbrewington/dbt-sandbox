@@ -8,10 +8,7 @@ on:
         - main
 env:
   DBT_PROFILES_DIR: ./
-
-  DBT_GOOGLE_PROJECT: ${{ secrets.DBT_GOOGLE_PROJECT }}
-  DBT_GOOGLE_BIGQUERY_DATASET_PROD: ${{ secrets.DBT_GOOGLE_BIGQUERY_DATASET_PROD }}
-  # DBT_GOOGLE_BIGQUERY_KEYFILE_PATH: './dbt-service-account.json'
+  GOOGLE_CLOUD_PROJECT: ${{ secrets.GOOGLE_CLOUD_PROJECT }}
 
 jobs:
   scheduled_run:
@@ -25,12 +22,6 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: "3.7.x"
-
-      # - name: Authenticate using service account
-      #   run: 'echo "$KEYFILE" > ./dbt-service-account.json'
-      #   shell: bash
-      #   env:
-      #     KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
 
       - id: 'auth'
         name: 'Authenticate to Google Cloud'

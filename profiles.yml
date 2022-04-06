@@ -5,8 +5,8 @@ dbt_proj:
       type: bigquery
       method: service-account
       keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
-      project: "{{ env_var('DBT_GOOGLE_PROJECT') }}"
-      dataset: "{{ env_var('DBT_GOOGLE_BIGQUERY_DATASET_DEV') }}"
+      project: "{{ env_var('GOOGLE_CLOUD_PROJECT') }}"
+      dataset: DBT_DEV
       threads: 32
       timeout_seconds: 300
       priority: interactive
@@ -15,8 +15,8 @@ dbt_proj:
       type: bigquery
       method: service-account
       keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
-      project: "{{ env_var('DBT_GOOGLE_PROJECT') }}"
-      dataset: "{{ env_var('DBT_GOOGLE_BIGQUERY_DATASET_PROD') }}"
+      project: "{{ env_var('GOOGLE_CLOUD_PROJECT') }}"
+      dataset: DBT_PROD
       threads: 32
       timeout_seconds: 300
       priority: interactive
