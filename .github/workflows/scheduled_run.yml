@@ -35,7 +35,10 @@ jobs:
           dbt deps --project-dir dbt_proj --target prod
 
       - name: Run dbt models
-        run: dbt run --project-dir dbt_proj --target prod
+        run: dbt run --project-dir dbt_proj --target dev
 
       - name: Test dbt models
-        run: dbt test --project-dir dbt_proj --target prod
+        run: dbt test --project-dir dbt_proj --target dev
+      
+      - name: If test succeeds, push to prod
+        run: dbt run --project-dir dbt_proj --target prod
