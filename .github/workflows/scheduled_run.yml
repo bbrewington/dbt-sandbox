@@ -11,7 +11,7 @@ env:
 
   DBT_GOOGLE_PROJECT: ${{ secrets.DBT_GOOGLE_PROJECT }}
   DBT_GOOGLE_BIGQUERY_DATASET_PROD: ${{ secrets.DBT_GOOGLE_BIGQUERY_DATASET_PROD }}
-  DBT_GOOGLE_BIGQUERY_KEYFILE_PATH: './dbt-service-account.json'
+  # DBT_GOOGLE_BIGQUERY_KEYFILE_PATH: './dbt-service-account.json'
 
 jobs:
   scheduled_run:
@@ -20,24 +20,29 @@ jobs:
 
     steps:
       - name: Check out
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
 
       - uses: actions/setup-python@v1
         with:
           python-version: "3.7.x"
 
-      - name: Authenticate using service account
-        run: 'echo "$KEYFILE" > ./dbt-service-account.json'
-        shell: bash
-        env:
-          KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
+      # - name: Authenticate using service account
+      #   run: 'echo "$KEYFILE" > ./dbt-service-account.json'
+      #   shell: bash
+      #   env:
+      #     KEYFILE: ${{secrets.DBT_GOOGLE_BIGQUERY_KEYFILE}}
+
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.DBT_GOOGLE_BIGQUERY_KEYFILE }}'
 
       - name: Install dependencies
         run: |
           pip install dbt-bigquery
           dbt deps --project-dir dbt_proj --target prod
-      
-      # Add dbt seed or other commands here if needed
+
       - name: Run dbt models
         run: dbt run --project-dir dbt_proj --target prod
 
